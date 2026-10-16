@@ -5,4 +5,5 @@ docker run --rm -d --network pruebas --name nginx \
     -v "$(pwd)/html":/usr/share/nginx/html \
     -v "$(pwd)/html2":/usr/share/nginx/html2 \
     -v "$(pwd)/sitios_nginx":/etc/nginx/conf.d \
+    -v "$(pwd)/configuracion_nginx/nginx.conf":/etc/nginx/nginx.conf \
     nginx
