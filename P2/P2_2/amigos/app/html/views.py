@@ -3,7 +3,6 @@ from .. import db
 from . import html
 from ..models import Amigo
 
-
 @html.route("/amigos")
 def tabla_amigos():
     """
