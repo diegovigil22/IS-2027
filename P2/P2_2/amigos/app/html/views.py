@@ -48,7 +48,6 @@ def save_amigo():
     if id is None or id == "":
         # En este caso se trata de un amigo nuevo, lo creamos.
         name = request.form.get("name")
-
         if not name:
             # Si falta el nombre, devolvemos un error HTTP 422
             abort(422)
@@ -56,8 +55,13 @@ def save_amigo():
         # Valores por defecto si los campos no vienen en el formulario.
         lati = request.form.get("lati", "0")
         longi = request.form.get("longi", "0")
+
+        device = request.form.get("device")
+        if device is not None and len(device) > 4096:
+            abort(422, "El dispositivo supera los 4096 caracteres")
+
         # Creamos el amigo y lo añadimos a la base de datos
-        amigo = Amigo(name=name, lati=lati, longi=longi)
+        amigo = Amigo(name=name, lati=lati, longi=longi, device=device)
         db.session.add(amigo)
         db.session.commit()
     else:
@@ -75,6 +79,13 @@ def save_amigo():
         longi = request.form.get("longi", "0")
         if longi:
             amigo.longi = longi
+
+        device = request.form.get("device")
+        if device is not None:
+            if len(device) > 4096:
+                abort(422, "El dispositivo supera los 4096 caracteres")
+            amigo.device = device
+
         # Una vez modificado, lo guardamos a la base de datos
         db.session.commit()
     # Redireccionamos hacia la tabla-lista de amigos
