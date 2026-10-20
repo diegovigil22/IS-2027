@@ -29,4 +29,8 @@ def create_app(config_name):
     from .health import health as health_blueprint
     app.register_blueprint(health_blueprint)
 
+    # Registrar el blueprint METRICS
+    from .metrics import metrics as metrics_blueprint
+    app.register_blueprint(metrics_blueprint)
+
     return app
