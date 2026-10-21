@@ -9,3 +9,12 @@ groups:
         annotations:
           summary: "Amigos no está disponible"
           description: "Prometheus no puede acceder al servicio Amigos desde hace más de 1 minuto."
+
+      - alert: AmigosHighErrorRate
+        expr: rate(amigos_http_errors_total[5m]) > 0
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Amigos está generando errores HTTP"
+          description: "El servicio Amigos está devolviendo respuestas HTTP de error."
