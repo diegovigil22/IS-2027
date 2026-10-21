@@ -1,0 +1,11 @@
+groups:
+  - name: amigos
+    rules:
+      - alert: AmigosDown
+        expr: up{job="amigos"} == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Amigos no está disponible"
+          description: "Prometheus no puede acceder al servicio Amigos desde hace más de 1 minuto."
